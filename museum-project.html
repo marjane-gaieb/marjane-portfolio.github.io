@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marjane Gaieb – Museum Project</title>
+
+  <meta name="description" content="Museum Project : affiche et bande dessinée pour le musée du Louvre, par Marjane Gaieb.">
+  <meta name="author" content="Marjane Gaieb">
+  <meta property="og:title" content="Marjane Gaieb – Museum Project">
+  <meta property="og:type" content="article">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Intel+One+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-museum">
+
+  <header class="header">
+    <a href="#" class="header__link header__link--cv" data-overlay="cv">Bio</a>
+    <a href="index.html" class="header__link header__link--accueil">Accueil</a>
+    <a href="travaux.html" class="header__link header__link--travaux is-active">Travaux</a>
+    <a href="#" class="header__link header__link--contact" data-overlay="contact">Contact</a>
+  </header>
+
+     <a href="travaux.html" class="back-link" aria-label="Retour aux travaux">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path class="trait" d="M68 14 Q58 46 34 52 Q58 58 68 86" />
+    </svg>
+  </a>
+  <main class="museum">
+  <section class="museum__top">
+    <img class="museum__affiche" src="images web/affiche-louvre.png" alt="Affiche Louvre">
+    <div class="museum__head">
+      <h1 class="museum__title">MUSEUM PROJECT</h1>
+      <div class="museum__intro">
+        <p><strong>Scénario</strong><br>
+        Belphégor, le fantôme du Louvre a encore fait des siennes... Les statues en ont marre des attouchements, des vulgarités, des pets et des défections en ce lieu si noble et cherchent un moyen de se venger.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="museum__details">
+    <div class="museum__p1">
+      <img src="images web/louvre-p1.png" alt="Louvre planche 1">
+    </div>
+    <div class="museum__infos">
+      <p><strong>Demande</strong><br>
+      Promouvoir un événement pour le musée du Louvre</p>
+      <p><strong>Support</strong><br>
+      Une affiche et une bande dessinée de deux pages</p>
+      <p><strong>Techniques</strong><br>
+      Encre de chine, fusain, applats couleurs photoshop</p>
+    </div>
+  </section>
+
+  <section class="museum__bottom">
+    <div class="museum__text">
+      <p>J'ai cherché à mélanger un aspect comic tout en conservant les lignes de l'art académique typique du musée du Louvre.</p>
+      <p>Le rendu allie ainsi le fusain, médium académique et l'encre de chine, très utilisé en bande dessinée.</p>
+    </div>
+    <div class="museum__p3">
+      <img src="images web/louvre-p3.png" alt="Louvre planche 3">
+    </div>
+  </section>
+
+  <section class="museum__mockup">
+    <img src="images web/bd-louvre-mockup.png" alt="Mockup BD Louvre">
+  </section>
+</main>
+
+  <!-- CALQUE CV -->
+  <section class="overlay" id="overlay-cv" hidden>
+    <div class="cv">
+      <h2 class="cv__title">Mini CV</h2>
+
+      <div class="cv__cols">
+        <div class="cv__col cv__col--left">
+          <p>Bachelor illustration- bande dessinée<br>
+             2024-2027 École Condé - Nice<br>
+             Spécialisation en illustration et bande dessinée</p>
+          <p>Prépa cpes-caap<br>
+             2022-2023 Lycée Clémenceau - Sartène<br>
+             Formation de niveau L1 préparant aux études d'art</p>
+          <p>LICENCE Mathématiques - Informatique<br>
+             2021-2022 Université de Bordeaux<br>
+             Python et HTML</p>
+        </div>
+        <div class="cv__col cv__col--right">
+          <p>Assistante de Charlotte Prenguey Cessac<br>
+             en résidence artistique au CIAC de Carros</p>
+          <p>Stages de sculpture sur pierre<br>
+             2021, 2022, 2023 E. Augier - Saint-Blaise</p>
+          <p>Stage bibliothécaire<br>
+             2019 Louis Nucéra - Nice<br>
+             Classification, archivage, activités culturelles</p>
+          <p>Stage agente d'accueil<br>
+             2018 Espace culturel Magnan - Nice<br>
+             accueil, reception et renseignement</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALQUE CONTACT -->
+  <section class="overlay" id="overlay-contact" hidden>
+    <div class="contact">
+      <a href="mailto:marjane.gaieb@gmail.com">marjane.gaieb@gmail.com</a>
+      <a href="https://www.instagram.com/_sing_bird/" target="_blank" rel="noopener">@_sing_bird</a>
+
+      <div class="contact__legal">
+        <h2>Mentions légales</h2>
+
+        <p><strong>Éditeur du site</strong><br>
+           Marjane Gaieb</p>
+
+        <p><strong>Hébergement</strong><br>
+           [Nom, adresse et contact de l'hébergeur à compléter]</p>
+
+        <p><strong>Propriété intellectuelle</strong><br>
+           L'ensemble des illustrations, dessins, sculptures et photographies présentés sur ce site sont l'œuvre de Marjane Gaieb. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable.</p>
+
+        <p><strong>Polices</strong><br>
+           Ce site utilise la police « Intel One Mono », distribuée via Google Fonts sous licence SIL Open Font License 1.1.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

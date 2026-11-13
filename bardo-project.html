@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marjane Gaieb – Bardo Project</title>
+
+  <meta name="description" content="Bardo Project : scénario et illustration autour du mythe de l'Atlantide, par Marjane Gaieb.">
+  <meta name="author" content="Marjane Gaieb">
+  <meta property="og:title" content="Marjane Gaieb – Bardo Project">
+  <meta property="og:type" content="article">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Intel+One+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="#" class="header__link header__link--cv" data-overlay="cv">Bio</a>
+    <a href="index.html" class="header__link header__link--accueil">Accueil</a>
+    <a href="travaux.html" class="header__link header__link--travaux is-active">Travaux</a>
+    <a href="#" class="header__link header__link--contact" data-overlay="contact">Contact</a>
+  </header>
+
+     <a href="travaux.html" class="back-link" aria-label="Retour aux travaux">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path class="trait" d="M68 14 Q58 46 34 52 Q58 58 68 86" />
+    </svg>
+  </a>
+
+  <main class="bardo">
+
+    <figure class="bardo__hero">
+      <img src="images%20web/illu-atlantide.png" alt="Illustration Atlantide">
+    </figure>
+
+    <!-- Personnage à gauche, titre et infos à droite, sur fond rose -->
+    <section class="bardo__band">
+      <figure class="bardo__chara">
+        <img src="images%20web/chara-elyssa.png" alt="Personnage Elyssa">
+      </figure>
+      <div class="bardo__intro">
+        <h1 class="bardo__title">BARDO PROJECT</h1>
+        <p><strong>Demande</strong><br>
+           Imaginer un scénario et une illustration autour du mythe de l'Atlantide</p>
+        <p><strong>Support</strong><br>
+           Un scénario et une illustration format A3</p>
+        <p><strong>Techniques</strong><br>
+           Gouache</p>
+      </div>
+    </section>
+
+    <!-- Texte à gauche, pigeon à droite -->
+    <section class="bardo__details">
+      <p class="bardo__caption">
+        La palette de couleur de cette illustration finale est particulièrement éclairée,
+        donnant un espace dégagé et renvoyant à l'imaginaire du lecteur
+      </p>
+      <figure class="bardo__pigeon">
+        <img src="images%20web/chara-pigeon.png" alt="Personnage pigeon">
+      </figure>
+    </section>
+
+    <figure class="bardo__mockup">
+      <img src="images%20web/illu-elyssa-mockup.png" alt="Illustration Elyssa en mockup">
+    </figure>
+
+  </main>
+
+  <!-- CALQUE CV -->
+  <section class="overlay" id="overlay-cv" hidden>
+    <div class="cv">
+      <h2 class="cv__title">Mini CV</h2>
+
+      <div class="cv__cols">
+        <div class="cv__col cv__col--left">
+          <p>Bachelor illustration- bande dessinée<br>
+             2024-2027 École Condé - Nice<br>
+             Spécialisation en illustration et bande dessinée</p>
+          <p>Prépa cpes-caap<br>
+             2022-2023 Lycée Clémenceau - Sartène<br>
+             Formation de niveau L1 préparant aux études d'art</p>
+          <p>LICENCE Mathématiques - Informatique<br>
+             2021-2022 Université de Bordeaux<br>
+             Python et HTML</p>
+        </div>
+        <div class="cv__col cv__col--right">
+          <p>Assistante de Charlotte Prenguey Cessac<br>
+             en résidence artistique au CIAC de Carros</p>
+          <p>Stages de sculpture sur pierre<br>
+             2021, 2022, 2023 E. Augier - Saint-Blaise</p>
+          <p>Stage bibliothécaire<br>
+             2019 Louis Nucéra - Nice<br>
+             Classification, archivage, activités culturelles</p>
+          <p>Stage agente d'accueil<br>
+             2018 Espace culturel Magnan - Nice<br>
+             accueil, reception et renseignement</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALQUE CONTACT -->
+  <section class="overlay" id="overlay-contact" hidden>
+    <div class="contact">
+      <a href="mailto:marjane.gaieb@gmail.com">marjane.gaieb@gmail.com</a>
+      <a href="https://www.instagram.com/_sing_bird/" target="_blank" rel="noopener">@_sing_bird</a>
+
+      <div class="contact__legal">
+        <h2>Mentions légales</h2>
+
+        <p><strong>Éditeur du site</strong><br>
+           Marjane Gaieb</p>
+
+        <p><strong>Hébergement</strong><br>
+           [Nom, adresse et contact de l'hébergeur à compléter]</p>
+
+        <p><strong>Propriété intellectuelle</strong><br>
+           L'ensemble des illustrations, dessins, sculptures et photographies présentés sur ce site sont l'œuvre de Marjane Gaieb. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable.</p>
+
+        <p><strong>Polices</strong><br>
+           Ce site utilise la police « Intel One Mono », distribuée via Google Fonts sous licence SIL Open Font License 1.1.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

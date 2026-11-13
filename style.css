@@ -1,0 +1,1361 @@
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+:root {
+  /* Animations */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --anim-fast: 0.2s;
+  --anim-mid: 0.4s;
+  --anim-slow: 0.8s;
+
+  /* Couleurs */
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-header: #f7c5c7;
+  --color-active: #f0a3a6;
+  --color-overlay: rgba(237, 169, 169, 0.92);
+  --color-band: #e8a99c;
+  --color-plum: #6e4966;
+  --color-museum-bg: #c0c0c0;
+  --color-arrow: #000000;
+  --color-info: rgba(247, 197, 199, 0.85);
+
+  /* Typographie */
+  --font-main: "Intel One Mono", "Courier New", monospace;
+  --text-nav: 22px;
+  --text-home: 20px;
+  --text-title: 36px;
+  --text-cv: 22px;
+  --text-cv-title: 36px;
+  --text-contact: 32px;
+  --line-home: 1.4;
+  --line-cv: 1.5;
+
+  /* Header */
+  --header-h: 56px;
+  --nav-pad: 30px;
+  --pos-accueil: 36.25%;
+  --pos-travaux: 61.5%;
+  --pos-contact: 81.5%;
+
+  /* Accueil */
+  --arrow-w: 60px;
+  --arrow-h: 108px;
+  --arrow-side: 18px;
+  --arrow-zone: 90px;
+  --text-width: 500px;
+  --frame-width: 620px;
+  --frame-tilt: -2deg;
+  --frame-bottom: 40px;
+
+  /* Pages 1 à 9 */
+  --page-frame-width: 1600px;
+  --page-frame-ratio: 16 / 10;
+
+  /* Travaux */
+  --works-top: 5vh;
+  --works-side: 1.875vw;
+  --works-gap: 4vh;
+  --works-bottom: 4vh;
+  --work-h-1: 285;
+  --work-h-2: 319;
+  --work-h-3: 305;
+
+  /* Calque CV */
+  --cv-side: 10.7%;
+  --cv-gap-cols: 5vw;
+  --cv-col-gap: 33px;
+  --cv-title-gap: 2vh;
+
+  /* Calque Contact */
+  --contact-left: 63.9%;
+  --contact-bottom: 13vh;
+  --contact-gap: 42px;
+
+  /* Pages projet */
+  --project-text: 0.85vw;
+  --project-title: 0.95vw;
+  --vinyle-title-top: 1.4vw;
+  --vinyle-tilt: -2deg;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scrollbar-gutter: stable; }
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background: var(--color-bg);
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+/* =========================================================
+   HEADER FIXE
+   ========================================================= */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-h);
+  z-index: 100;
+  background: var(--color-header);
+  font-size: var(--text-nav);
+}
+
+.header__link {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--nav-pad);
+  white-space: nowrap;
+  font-weight: 400;
+  background: transparent;
+  transition: background var(--anim-mid) var(--ease);
+}
+
+.header__link::after {
+  content: "";
+  position: absolute;
+  left: var(--nav-pad);
+  right: var(--nav-pad);
+  bottom: 12px;
+  height: 2px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--anim-mid) var(--ease);
+}
+
+.header__link:hover::after { transform: scaleX(1); }
+.header__link:hover { background: var(--color-active); }
+
+.header__link--cv      { left: 0; }
+.header__link--accueil { left: calc(var(--pos-accueil) - var(--nav-pad)); }
+.header__link--travaux { left: calc(var(--pos-travaux) - var(--nav-pad)); }
+
+.header__link--contact {
+  left: auto;
+  right: 0;
+  width: auto;
+  justify-content: flex-start;
+}
+
+.header__link--contact::after {
+  left: var(--nav-pad);
+  right: var(--nav-pad);
+}
+
+.header__link.is-active { background: var(--color-active); }
+
+/* =========================================================
+   ACCUEIL
+   ========================================================= */
+.home {
+  position: relative;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 45% 1fr;
+  align-items: center;
+  padding: 0 var(--arrow-zone);
+}
+
+.home__text {
+  justify-self: start;
+  align-self: center;
+  max-width: 36vw;
+  padding-left: 9vw;
+  padding-top: 0;
+  font-size: var(--text-home);
+  line-height: 1.5;
+}
+
+.home__text.is-hidden { opacity: 0; pointer-events: none; }
+
+.home__title {
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 3vh;
+}
+
+.home__text p {
+  font-size: var(--text-home);
+  line-height: 1.5;
+}
+
+
+/* Cadre du croquis (slide 0) */
+.home__frame {
+  position: relative;
+  justify-self: start;
+  width: 90%;
+  max-width: none;
+  height: calc(100vh - var(--header-h) - var(--frame-bottom));
+  margin-top: var(--header-h);
+  margin-left: 4vw;
+  transform: rotate(var(--frame-tilt));
+  background: transparent;
+  overflow: hidden;
+}
+/* Cadre des pages 1 à 9 : centré, sans rotation ni animation
+   (sinon le transform bloque la position des calques) */
+.home__frame.is-page {
+  position: fixed;
+  top: calc(var(--header-h) + (100vh - var(--header-h)) / 2);
+  left: 50%;
+  width: calc(100% - 2 * var(--arrow-zone));
+  max-width: var(--page-frame-width);
+  height: auto;
+  aspect-ratio: var(--page-frame-ratio);
+  margin: 0;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  background: transparent;
+  overflow: visible;
+}
+
+/* Slides empilées, seule la courante est visible */
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--anim-mid) var(--ease);
+}
+
+.slide.is-current {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slide--croquis { object-fit: contain; }
+
+.slide--page { overflow: visible; }
+
+.slide__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- Calques (petites images) ---------- */
+.layer-wrap {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+/* L'image est au-dessus du rectangle rose */
+.layer-wrap > .layer {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ---------- Agrandissement des calques au survol ---------- */
+.layer-wrap > .layer {
+  transition: transform var(--anim-mid) var(--ease);
+  transform-origin: center center;
+}
+
+.layer-wrap:hover > .layer,
+.layer-wrap:focus-visible > .layer {
+  transform: scale(1.08);
+}
+
+/* Page 1 */
+.layer-wrap--p1-cyano { top: 15%;   left: 81.5%; width: 12.5%; height: 36%; }
+.layer-wrap--p1-lino  { top: 44%;   left: 46%;   width: 15.5%; height: 38%; }
+
+/* Page 2 */
+.layer-wrap--p2-museum { top: 42%; left: 33%; width: 29%; height: 45%; }
+
+/* Page 3 */
+.layer-wrap--p3-peinture   { top: 32%;   left: 6%;    width: 41%; height: 58.5%; }
+.layer-wrap--p3-grenouille { top: 17.3%; left: 59.8%; width: 11%; height: 25%; }
+
+/* Page 4 */
+.layer-wrap--p4-calin { top: 43.7%; left: 43.5%; width: 20%; height: 35%; }
+
+/* Page 5 */
+.layer-wrap--p5-gouache { top: 23%; left: 38.2%; width: 19.5%; height: 35%; }
+
+/* Page 6 */
+.layer-wrap--p6-encre { top: 37%; left: 34.7%; width: 27%; height: 49.6%; }
+
+/* Page 7 */
+.layer-wrap--p7-pigeon { top: 25.5%; left: 34.3%; width: 21.8%; height: 32.3%; }
+.layer-wrap--p7-train  { top: 52.2%; left: 22%;   width: 39.4%; height: 40.7%; }
+
+/* Page 8 */
+.layer-wrap--p8-museum { top: 20.3%; left: 58.8%; width: 27%; height: 46.5%; }
+.layer-wrap--p8-nu     { top: 55.5%; left: 20.4%; width: 31%; height: 35.5%; }
+
+/* Page 9 */
+.layer-wrap--p9-bouquet { top: 10.4%; left: 29.8%; width: 17%; height: 50.2%; }
+
+/* ---------- Rectangle rose + texte ----------
+   Le rectangle déborde l'image de --info-bleed sur les trois côtés libres
+   (haut, bas, et bord opposé au texte). Le texte se déploie à droite,
+   ou à gauche avec layer-wrap--left. */
+.layer__info {
+  --info-bleed: 0.4vw;      /* débordement du rectangle autour de l'image */
+  --info-gap: 1.2vw;        /* espace entre l'image et le texte */
+  --info-max: 16vw;         /* largeur maximale du texte */
+  --info-pad: 0.8vw;        /* marge intérieure du texte */
+
+  position: absolute;
+  top: calc(-1 * var(--info-bleed));
+  bottom: calc(-1 * var(--info-bleed));
+  left: calc(-1 * var(--info-bleed));
+  right: calc(-1 * var(--info-bleed) - var(--info-gap) - var(--info-max));
+  z-index: 1;
+  background: var(--color-info);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--anim-mid) var(--ease), visibility var(--anim-mid);
+}
+
+/* Texte : largeur selon le contenu, plafonnée à --info-max */
+.layer__info p {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + var(--info-bleed) + var(--info-gap) - var(--info-max) - var(--info-bleed));
+  transform: translateY(-50%);
+  width: max-content;
+  max-width: calc(var(--info-max) - var(--info-pad) * 2);
+  padding: 0 var(--info-pad);
+  font-family: var(--font-main);
+  font-size: 0.85vw;
+  line-height: 1.5;
+  color: var(--color-text);
+  opacity: 0;
+  transition: opacity var(--anim-mid) var(--ease) 0.1s;
+}
+
+/* Gauche : le rectangle s'étend vers la gauche, le texte se place à gauche de l'image */
+.layer-wrap--left .layer__info {
+  left: calc(-1 * var(--info-bleed) - var(--info-gap) - var(--info-max));
+  right: calc(-1 * var(--info-bleed));
+}
+.layer-wrap--left .layer__info p {
+  left: calc(var(--info-bleed) + var(--info-gap) - var(--info-bleed));
+  text-align: right;
+}
+
+/* Affichage au survol */
+.layer-wrap:hover .layer__info,
+.layer-wrap:focus-visible .layer__info {
+  opacity: 1;
+  visibility: visible;
+}
+
+.layer-wrap:hover .layer__info p,
+.layer-wrap:focus-visible .layer__info p {
+  opacity: 1;
+}
+
+a.layer-wrap { text-decoration: none; }
+
+/* ---------- Calques « en savoir plus » ---------- */
+.layer-wrap--savoir {
+  position: absolute;
+  display: block;
+}
+
+.layer-wrap--savoir > .layer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.layer-wrap--savoir:hover > .layer,
+.layer-wrap--savoir:focus-visible > .layer {
+  filter: sepia(2) hue-rotate(300deg) contrast(1.1);
+}
+
+/* Texte « en savoir plus » centré, visible au survol */
+.layer-wrap--savoir > .layer-wrap__label {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #000;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--anim-mid) var(--ease);
+}
+
+/* Les calques d'une slide non courante ne doivent jamais être cliquables */
+.slide:not(.is-current) .layer-wrap,
+.slide:not(.is-current) .layer-wrap--savoir {
+  pointer-events: none !important;
+}
+
+.layer-wrap--savoir > .layer-wrap__label span {
+  background: #fff;
+  padding: 0.2em 0.5em;
+  line-height: 1.6;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.layer-wrap--savoir:hover > .layer-wrap__label,
+.layer-wrap--savoir:focus-visible > .layer-wrap__label {
+  opacity: 1;
+}
+/* =========================================================
+   FLÈCHES
+   ========================================================= */
+.arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: var(--arrow-w);
+  height: var(--arrow-h);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.4s cubic-bezier(.3,.7,.3,1);
+}
+
+.arrow--prev { left: var(--arrow-side); }
+.arrow--next { right: var(--arrow-side); }
+
+.arrow svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.arrow .trait {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-width 0.3s, transform 0.4s;
+}
+
+/* Effet « page qui se tourne » au survol */
+.arrow--next:hover .trait { transform: translateX(6px) skewY(-4deg); }
+.arrow--prev:hover .trait { transform: translateX(-6px) skewY(4deg); }
+
+/* Au clic : la page se retourne (léger rétrécissement puis retour) */
+.arrow:active {
+  transform: translateY(-50%) scaleX(0.7);
+}
+
+.arrow:focus-visible {
+  outline: 2px dashed var(--color-text);
+  outline-offset: 6px;
+}
+
+.arrow .trait,
+.arrow--next .trait {
+  fill: none !important;
+  stroke: var(--color-text);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* =========================================================
+   TRAVAUX
+   ========================================================= */
+.works {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--works-gap);
+  padding:
+    calc(var(--header-h) + var(--works-top))
+    var(--works-side)
+    var(--works-bottom);
+}
+
+.work {
+  width: 100%;
+  min-height: 0;
+  flex-basis: 0;
+  flex-shrink: 1;
+  background: transparent;
+  overflow: hidden;
+  position: relative;
+  animation: fadeUp var(--anim-slow) var(--ease) both;
+}
+
+.work--1 { flex-grow: var(--work-h-1); animation-delay: 0.05s; }
+.work--2 { flex-grow: var(--work-h-2); animation-delay: 0.2s; }
+.work--3 { flex-grow: var(--work-h-3); animation-delay: 0.35s; }
+
+.work img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease), filter var(--anim-mid);
+}
+
+.work:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.92);
+}
+
+/* Lien de la carte : sert de repère pour le titre */
+.work a {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Teinte rose au survol */
+.work a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-header);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--anim-mid) var(--ease);
+}
+
+.work:hover a::after,
+.work:focus-within a::after {
+  opacity: 1;
+}
+
+/* Titre centré, affiché au survol */
+.work__title {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  pointer-events: none;
+}
+
+.work__title span {
+  background: #fff;
+  color: #000;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.6vw, 4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15em 0.5em;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--anim-mid) var(--ease), transform var(--anim-mid) var(--ease);
+}
+
+
+.work:hover .work__title span,
+.work:focus-within .work__title span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   CALQUE CV
+   ========================================================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--color-overlay);
+  overflow-y: auto;
+}
+
+.overlay[hidden] { display: none; }
+
+.overlay:not([hidden]) {
+  animation: overlayIn var(--anim-mid) var(--ease) both;
+}
+
+.cv {
+  min-height: 100vh;
+  padding: calc(var(--header-h) + 14vh) var(--cv-side) 10vh;
+  font-size: var(--text-cv);
+  line-height: var(--line-cv);
+}
+
+.cv__title {
+  font-size: var(--text-cv-title);
+  font-weight: 700;
+  margin-bottom: var(--cv-title-gap);
+  animation: fadeUp var(--anim-slow) var(--ease) both;
+}
+
+.cv__cols {
+  display: flex;
+  gap: var(--cv-gap-cols);
+  align-items: flex-start;
+}
+
+.cv__col {
+  flex: 1;
+  max-width: 40ch;
+}
+
+.cv__col--left  { animation: fadeUp var(--anim-slow) var(--ease) 0.1s both; }
+.cv__col--right { animation: fadeUp var(--anim-slow) var(--ease) 0.25s both; }
+
+.cv__col p + p { margin-top: var(--cv-col-gap); }
+
+/* =========================================================
+   CALQUE CONTACT
+   ========================================================= */
+.contact {
+  position: absolute;
+  left: var(--contact-left);
+  bottom: var(--contact-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-gap);
+  font-size: var(--text-contact);
+  animation: fadeUp var(--anim-slow) var(--ease) 0.15s both;
+}
+
+.contact a {
+  position: relative;
+  width: fit-content;
+}
+
+.contact a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 2px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--anim-mid) var(--ease);
+}
+
+.contact a:hover::after { transform: scaleX(1); }
+
+/* =========================================================
+   PAGES PROJET – base commune
+   ========================================================= */
+.bardo, .museum, .vinyle {
+  padding-top: var(--header-h);
+  font-family: var(--font-main);
+  font-size: var(--project-text);
+  line-height: 1.5;
+}
+
+.bardo strong, .museum strong, .vinyle strong { font-weight: 700; }
+
+.bardo img, .museum img, .vinyle img { width: 100%; height: auto; }
+
+/* Titres des pages projet : même taille que les titres de la page Travaux */
+.bardo__title,
+.museum__title,
+.vinyle__title {
+  display: inline-block;
+  font-size: clamp(1.8rem, 3.6vw, 4rem) !important;
+  font-weight: 700;
+  background: #fff;
+  padding: 0.1em 0.4em;
+  line-height: 1.9;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Bardo et Museum : titre plus haut, séparé du texte */
+.bardo__title,
+.museum__title {
+  margin-top: 0;
+  margin-bottom: 2vh;
+}
+
+/* Vinyle : titre centré avec espace avant l'image */
+.vinyle__title {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 4vh;
+  padding: 3vh 0.4em 2vh;
+}
+
+/* =========================================================
+   PAGE PROJET – Bardo
+   ========================================================= */
+.bardo__hero {
+  width: 88%;
+  margin: 5vh auto 6vh;
+  overflow: hidden;
+}
+
+.bardo__band {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 27vw;
+  padding: 0 5.9% 4vw;
+  background: var(--color-band);
+}
+
+.bardo__chara {
+  flex: 0 0 25%;
+  margin-top: -12vw;
+  overflow: hidden;
+}
+
+.bardo__intro {
+  flex: 0 0 38%;
+  margin-left: auto;
+  padding-top: 4vw;   /* était 13vw : remonte le titre */
+}
+
+.bardo__title {
+  font-size: var(--project-title);
+  font-weight: 700;
+  margin-bottom: 10%;
+  line-height: 1.5;
+}
+
+.bardo__intro p + p { margin-top: 1.5em; }
+
+.bardo__details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4vw;
+  padding: 4vh 5.9%;
+}
+
+.bardo__caption { flex: 0 0 26%; }
+
+.bardo__pigeon {
+  flex: 0 0 22%;
+  overflow: hidden;
+}
+
+.bardo__mockup {
+  margin-top: 4vh;
+  overflow: hidden;
+}
+
+/* =========================================================
+   PAGE PROJET – Museum
+   ========================================================= */
+.museum__top {
+  position: relative;
+  background: linear-gradient(to bottom, #fff 0%, #fff 22%, #c2c2c2 22%, #c2c2c2 78%, #fff 78%);
+  padding: 0 0 4vw;
+}
+
+.museum__affiche {
+  display: block;
+  width: auto;
+  max-width: 36%;
+  max-height: 80vh;
+  margin: 0 auto;
+  object-fit: contain;
+  background: none;
+}
+
+.museum__head {
+  width: 60%;
+  margin: 3vw auto 0;
+}
+
+/* Titre : grande taille conservée */
+.museum__title {
+  font-size: clamp(1.8rem, 3.6vw, 4rem) !important;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1.5vw;
+  background: none;
+  padding: 0;
+  display: block;
+}
+
+.museum__intro p {
+  font-size: var(--project-text);
+  line-height: 1.5;
+}
+
+.museum__details {
+  display: flex;
+  align-items: flex-start;
+  gap: 3vw;
+  padding: 4vw 5.9% 0 3.5%;
+  background: #fff;
+}
+
+.museum__p1 {
+  flex: 0 0 36%;
+  margin-top: -4vw;
+  background: none;
+}
+
+.museum__p1 img {
+  display: block;
+  width: 100%;
+  max-height: 80vh;
+  height: auto;
+  object-fit: contain;
+  background: none;
+}
+
+.museum__infos {
+  flex: 1;
+  padding-top: 4vw;
+}
+
+.museum__infos p + p { margin-top: 1.5em; }
+
+.museum__bottom {
+  display: flex;
+  align-items: flex-start;
+  gap: 3vw;
+  padding: 6vw 5.9% 6vw 3.5%;
+  background: #fff;
+}
+
+.museum__bottom {
+  padding-bottom: 0;
+}
+
+.museum__text {
+  flex: 0 0 26%;
+  padding-top: 20vw;
+}
+
+.museum__text {
+  position: relative;
+  top: -20vw;     /* négatif = vers le haut, positif = vers le bas */
+  left: 20vw;     /* positif = vers la droite, négatif = vers la gauche */
+}
+
+
+.museum__text p + p { margin-top: 1.5em; }
+
+.museum__p3 {
+  flex: 1;
+  background: none;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -10vw;
+  padding-left: 30vw;
+}
+
+.museum__p3 img {
+  display: block;
+  width: 100%;
+  max-height: 80vh;
+  height: auto;
+  object-fit: contain;
+  background: none;
+}
+
+/* Mockup : sans fond, image limitée à la hauteur de l'écran */
+.museum__mockup {
+  background: none;
+  padding: 0;
+  margin-top: -4vw;
+  display: flex;
+  justify-content: center;
+}
+
+.museum__mockup img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 90vh;
+  height: auto;
+  object-fit: contain;
+  background: none;
+}
+
+/* =========================================================
+   PAGE PROJET – Vinyle
+   ========================================================= */
+.vinyle__title {
+  padding: 3vh 0 2vh;
+  text-align: center;
+  font-size: var(--vinyle-title-top);
+  font-weight: 700;
+}
+
+.vinyle__hero {
+  aspect-ratio: 577 / 284;
+  overflow: hidden;
+}
+
+.vinyle__hero img { height: 100%; object-fit: cover; }
+
+.vinyle__band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4vw;
+  background: var(--color-plum);
+  padding: 4vh 0;
+}
+
+.vinyle__stickers {
+  flex: 0 0 22%;
+  overflow: hidden;
+}
+
+.vinyle__intro {
+  width: 28%;
+  color: var(--color-bg);
+}
+
+.vinyle__intro p + p { margin-top: 1.4em; }
+
+.vinyle__covers { display: flex; }
+
+.vinyle__cover {
+  flex: 1;
+  overflow: hidden;
+  aspect-ratio: 289 / 290;
+}
+
+.vinyle__cover img { height: 100%; object-fit: cover; }
+
+.vinyle__details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4vw;
+  padding: 4vh 2%;
+}
+
+.vinyle__infos { width: 30%; }
+
+.vinyle__infos p + p { margin-top: 1.4em; }
+
+.vinyle__stickers-tilt {
+  width: 27%;
+  aspect-ratio: 207 / 240;
+  transform: rotate(var(--vinyle-tilt));
+  overflow: hidden;
+  transition: transform 0.6s var(--ease);
+}
+
+.vinyle__stickers-tilt:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+
+.vinyle__stickers-tilt img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.vinyle__mockup {
+  aspect-ratio: 577 / 433;
+  overflow: hidden;
+}
+
+.vinyle__mockup img { height: 100%; object-fit: cover; }
+
+
+
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.bardo__title,
+.museum__title,
+.vinyle__title {
+  animation: fadeUp var(--anim-slow) var(--ease) both;
+}
+
+.bardo img,
+.museum img,
+.vinyle img {
+  transition: transform 0.8s var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+/* =========================================================
+   ACCUEIL : lien CV
+   ========================================================= */
+.home__cv {
+  position: relative;
+  display: inline-block;
+  margin-top: 1vh;
+  padding: 0.3em 0.8em;
+  background: var(--color-info);
+  border: none;
+  transition: background var(--anim-mid) var(--ease);
+}
+
+.home__cv::after {
+  content: "";
+  position: absolute;
+  left: 0.8em;
+  right: 0.8em;
+  bottom: 0.15em;
+  height: 2px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--anim-mid) var(--ease);
+}
+
+.home__cv:hover,
+.home__cv:focus-visible {
+  background: var(--color-active);
+}
+
+.home__cv:hover::after,
+.home__cv:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.contact__form label { font-weight: 700; }
+
+.contact__form input,
+.contact__form textarea {
+  font-family: var(--font-main);
+  font-size: 16px;
+  padding: 8px 10px;
+  border: 2px solid var(--color-text);
+  background: #fff;
+  width: 100%;
+}
+
+.contact__form input:focus-visible,
+.contact__form textarea:focus-visible {
+  outline: 2px dashed var(--color-text);
+  outline-offset: 2px;
+}
+
+.contact__submit {
+  align-self: flex-start;
+  font-family: var(--font-main);
+  font-size: 16px;
+  padding: 8px 18px;
+  border: 2px solid var(--color-text);
+  background: var(--color-text);
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--anim-mid) var(--ease), color var(--anim-mid) var(--ease);
+}
+
+.contact__submit:hover,
+.contact__submit:focus-visible {
+  background: #fff;
+  color: var(--color-text);
+}
+
+/* =========================================================
+   MENTIONS LÉGALES
+   ========================================================= */
+.legal {
+  position: fixed;
+  bottom: 12px;
+  right: 16px;
+  z-index: 20;
+  font-size: 12px;
+}
+
+.legal a {
+  background: #fff;
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--color-text);
+}
+
+.legal-page {
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.legal-content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: calc(var(--header-h) + 60px) 24px 80px;
+}
+
+.legal-content h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.legal-content h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 30px 0 10px;
+}
+
+.legal-content p + p { margin-top: 1em; }
+
+/* =========================================================
+   PETITS ÉCRANS (≤ 900 px) : bloc corrigé et complété
+   ========================================================= */
+@media (max-width: 900px) {
+  :root {
+    --text-nav: 14px;
+    --nav-pad: 10px;
+    --text-home: 16px;
+    --text-title: 26px;
+    --text-cv: 16px;
+    --text-cv-title: 26px;
+    --text-contact: 22px;
+    --works-top: 30px;
+    --works-side: 16px;
+    --works-gap: 30px;
+    --works-bottom: 60px;
+    --project-text: 14px;
+    --project-title: 18px;
+    --vinyle-title-top: 18px;
+  }
+
+  /* Accueil : texte puis cadre empilés */
+  .home {
+    height: auto;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: calc(var(--header-h) + 40px) 24px 80px;
+  }
+
+  .home__text {
+    justify-self: stretch;
+    max-width: none;
+    padding-left: 0;
+  }
+
+  .home__frame {
+    justify-self: center;
+    width: 100%;
+    height: 60vh;
+    margin: 0;
+    transform: none;
+  }
+
+  /* Pages 1 à 9 : cadre plein écran, flèches en bas pour libérer l'image */
+  .home__frame.is-page {
+    width: 100vw;
+    max-width: none;
+    height: auto;
+    aspect-ratio: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .arrow {
+    top: auto;
+    bottom: 16px;
+    transform: none;
+    width: 48px;
+    height: 80px;
+  }
+
+  .arrow--prev { left: 16px; }
+  .arrow--next { right: 16px; }
+
+  .layer__info p { font-size: 11px; }
+  .layer__info { --info-max: 30vw; }
+
+  /* Travaux */
+  .works { height: auto; }
+  .work { flex: none; aspect-ratio: 16 / 9; }
+
+  /* Calque CV */
+  .cv { padding: calc(var(--header-h) + 40px) 24px 60px; }
+  .cv__cols { flex-direction: column; gap: 30px; }
+  .cv__col { max-width: none; }
+
+  /* Calque Contact */
+  .contact {
+    position: static;
+    padding: calc(var(--header-h) + 40px) 24px 60px;
+  }
+
+  /* Pages projet */
+  .bardo__hero { width: 100%; }
+  .bardo__band,
+  .bardo__details { flex-direction: column; gap: 24px; padding: 24px 8%; }
+  .bardo__chara,
+  .bardo__intro,
+  .bardo__caption,
+  .bardo__pigeon { flex: none; width: 100%; margin: 0; padding: 0; }
+
+  .museum__affiche { max-width: 70%; }
+  .museum__head { width: 90%; }
+  .museum__details,
+  .museum__bottom { flex-direction: column; gap: 24px; padding: 24px 8%; }
+  .museum__p1,
+  .museum__infos,
+  .museum__text,
+  .museum__p3 { flex: none; width: 100%; margin: 0; padding: 0; top: 0; left: 0; }
+
+  .vinyle__band { flex-direction: column; gap: 24px; padding: 8% 0; }
+  .vinyle__stickers { flex: none; width: 70%; margin: 0 auto; }
+  .vinyle__intro { width: auto; margin: 0 8%; }
+  .vinyle__covers { flex-direction: column; }
+  .vinyle__details { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .vinyle__infos { width: auto; }
+  .vinyle__stickers-tilt { width: 70%; align-self: center; }
+}
+
+
+/* Curseur par défaut : flèche droite, trait fin */
+html, body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M6 4 L6 24 L11 19 L15 27 L18 25.5 L14 18 L21 18 Z' fill='none' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 6 4, auto;
+}
+
+a, button, .arrow, [data-overlay] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 32 32'%3E%3Cpath d='M6 4 L6 24 L11 19 L15 27 L18 25.5 L14 18 L21 18 Z' fill='none' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 9 6, pointer;
+}
+
+/* Flèches de navigation : curseur agrandi */
+.arrow,
+.arrow *,
+[class*="arrow"],
+[class*="arrow"] * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 32 32'%3E%3Cpath d='M6 4 L6 24 L11 19 L15 27 L18 25.5 L14 18 L21 18 Z' fill='none' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 9 6, pointer !important;
+}
+
+/* Images cliquables (liens) : même curseur agrandi */
+a img,
+a img *,
+[data-overlay] img,
+[data-overlay] * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 32 32'%3E%3Cpath d='M6 4 L6 24 L11 19 L15 27 L18 25.5 L14 18 L21 18 Z' fill='none' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 9 6, pointer !important;
+}
+
+/* Curseur agrandi sur toutes les images des pages 1 à 9 */
+.slide img,
+.slide .layer-wrap,
+.slide .layer-wrap * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 32 32'%3E%3Cpath d='M6 4 L6 24 L11 19 L15 27 L18 25.5 L14 18 L21 18 Z' fill='none' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 9 6, pointer !important;
+}
+
+
+/* =========================================================
+   MENTIONS LÉGALES (dans le calque contact)
+   ========================================================= */
+.contact__legal {
+  max-width: 520px;
+  margin-top: 30px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.contact__legal h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.contact__legal p {
+  margin-bottom: 12px;
+}
+
+/* =========================================================
+   FLÈCHE RETOUR TRAVAUX (pages projet) – même style que l'accueil
+   ========================================================= */
+.back-link {
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.back-link svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.back-link .trait {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  transform: translateX(-4px);
+  outline: none;
+}
